@@ -7,24 +7,25 @@ God said, "let there be color"; he willed it, and at once *Deep Neural Network* 
 This work is based on  [siggraph16](http://hi.cs.waseda.ac.jp/~iizuka/projects/colorization/data/colorization_sig2016.pdf) with several modifications. If you wonder details about the model, peruse the original paper would be a good choice.
 
 # How to run this code
-## Hardwares
-If you are going to train on your own dataset, a fancy GPU is necessary (at least 6GB graphic memory). If you are going to just play with it, then CPU would be enough to handle.
+* Hardwares
 
-## Framework
-Code is based on [Torch7](http://torch.ch). Follow [install guide](http://torch.ch/docs/getting-started.html#) first.
+    If you are going to train on your own dataset, a fancy GPU is necessary (at least 6GB graphic memory). If you are going to just play with it, then CPU would be enough to handle.
 
-Setup dependencies
-```
-luarocks install torch
-luarocks install nn
-luarocks install image
-luarocks install lua-cjson
+* Framework
+  Code is based on [Torch7](http://torch.ch). Follow [install guide](http://torch.ch/docs/getting-started.html#) first.
 
-#GPU acceleration
-luarocks install cutorch
-luarocks install cunn
-luarocks install cudnn
-```
+* Setup dependencies
+  ```
+  luarocks install torch
+  luarocks install nn
+  luarocks install image
+  luarocks install lua-cjson
+
+  #GPU acceleration
+  luarocks install cutorch
+  luarocks install cunn
+  luarocks install cudnn
+  ```
 
 # Colorize  images (Kira!)
 ## Download pre-trained model (if you are not going to train your own)
