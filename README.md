@@ -9,9 +9,10 @@ This work is based on  [siggraph16](http://hi.cs.waseda.ac.jp/~iizuka/projects/c
 # How to run this code
 * Hardwares
 
-    If you are going to train on your own dataset, a fancy GPU is necessary (at least 6GB graphic memory). If you are going to just play with it, then CPU would be enough to handle.
+  If you are going to train on your own dataset, a fancy GPU is necessary (at least 6GB graphic memory). If you are going to just play with it, then CPU would be enough to handle.
 
 * Framework
+
   Code is based on [Torch7](http://torch.ch). Follow [install guide](http://torch.ch/docs/getting-started.html#) first.
 
 * Setup dependencies
@@ -28,7 +29,10 @@ This work is based on  [siggraph16](http://hi.cs.waseda.ac.jp/~iizuka/projects/c
   ```
 
 # Colorize  images (Kira!)
-## Download pre-trained model (if you are not going to train your own)
+*  Download pre-trained model (if you are not going to train your own)
 
-## Magic Time
-follow `Demo.ipynb`.
+    `Now uploading, wait a minute`
+
+* Magic Time
+
+    follow `Demo.ipynb`.
