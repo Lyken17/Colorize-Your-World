@@ -140,4 +140,3 @@ function M.build_model(opts)
 end
 
 return M
-

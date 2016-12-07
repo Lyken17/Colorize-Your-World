@@ -2,7 +2,6 @@ require 'torch'
 require 'optim'
 require 'image'
 
-require 'optnet'
 require 'cutorch'
 require 'cudnn'
 require 'cunn'
@@ -10,17 +9,13 @@ require 'cunn'
 require 'DataLoader'
 local utils = require 'utils'
 -- local models = require 'models'
-local new_models = require 'tune_model'
+local new_models = require 'model'
 local cmd = torch.CmdLine()
 
 
---[[
-Train a feedforward style transfer model
---]]
-
 -- Generic options
 -- cmd:option('-arch', 'c9s1-32,d64,d128,R128,R128,R128,R128,R128,u64,u32,c9s1-2')
-cmd:option('-h5_file', '../colorization_sigmoid/places.h5')
+cmd:option('-h5_file', './colorization_sigmoid/data/places.h5')
 cmd:option('-resume_from_checkpoint', '')
 cmd:option('-fine_tune', 'colornet.t7')
 
@@ -65,7 +60,7 @@ function main()
     -- model = models.build_model(opt):type(dtype)
     model = new_models.build_model(opt):type(dtype)
   end
-  
+
   -- if use_cudnn then cudnn.convert(model, cudnn) end
   model:training()
   print(model)
@@ -73,12 +68,12 @@ function main()
   local loader = DataLoader(opt)
   local params, grad_params = model:getParameters()
   local criterion = nn.MSECriterion():type(dtype)
-  
+
 
   local function f(x)
     assert(x == params)
     grad_params:zero()
-    
+
     -- x is y value, y is uv value
     local x1, x2, y = loader:getBatch('train')
     x1, x2, y = x1:type(dtype), x2:type(dtype), y:type(dtype)
@@ -90,7 +85,7 @@ function main()
     -- This is a bit of a hack: if we are using reflect-start padding and the
     -- output is not the same size as the input, lazily add reflection padding
     -- to the start of the model so the input and output have the same size.
-    
+
     --[[
     if opt.padding_type == 'reflect-start' and x:size(3) ~= out:size(3) then
       local ph = (x:size(3) - out:size(3)) / 2
@@ -108,7 +103,7 @@ function main()
 
     -- Add regularization
     -- grad_params:add(opt.weight_decay, params)
- 
+
     return loss, grad_params
   end
 
@@ -123,12 +118,12 @@ function main()
     local epoch = t / loader.num_minibatches['train']
 
     local _, loss = optim.adam(f, params, optim_state)
-    
+
     table.insert(train_loss_history, loss[1])
 
     print(string.format('Epoch %f, Iteration %d / %d, loss = %f',
           epoch, t, opt.num_iterations, loss[1]), optim_state.learningRate)
-    
+
     if t % opt.checkpoint_every == 0 then
       -- Check loss on the validation set
       loader:reset('val')
@@ -139,15 +134,15 @@ function main()
       for j = 1, val_batches do
         -- local x, y = loader:getBatch('val')
         -- x, y = x:type(dtype), y:type(dtype)
-        
+
         local x1, x2, y = loader:getBatch('val')
         x1, x2, y = x1:type(dtype), x2:type(dtype), y:type(dtype)
         x = {x1, x2}
         local out = model:forward(x)
         val_loss = val_loss + criterion:forward(out,y)
-        
+
       end
-      
+
       val_loss = val_loss / val_batches
       print(string.format('val loss = %f', val_loss))
       table.insert(val_loss_history, val_loss)

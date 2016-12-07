@@ -21,6 +21,7 @@ This work is based on  [siggraph16](http://hi.cs.waseda.ac.jp/~iizuka/projects/c
   luarocks install nn
   luarocks install image
   luarocks install lua-cjson
+  luarocks install hdf5
 
   #GPU acceleration
   luarocks install cutorch
@@ -28,11 +29,11 @@ This work is based on  [siggraph16](http://hi.cs.waseda.ac.jp/~iizuka/projects/c
   luarocks install cudnn
   ```
 
-# Colorize  images (Kira!)
+# Colorize  images
 *  Download pre-trained model (if you are not going to train your own)
 
-    `Now uploading, wait a minute`
+    `wget https://github.com/Lyken17/Colorize-Your-World/releases/download/1.0/pre_trained.t7`
 
 * Magic Time
 
-    follow `Demo.ipynb`.
+    `th colorzie.lua -input_image 'your image' `
