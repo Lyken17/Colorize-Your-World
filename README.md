@@ -7,6 +7,9 @@ This project is based on the [siggraph16](http://hi.cs.waseda.ac.jp/~iizuka/proj
 
 Our implementation is slightly different from the one proposed in the aforementioned paper. The experiments show that our implementation is much more efficient and requires significantly less graphic memory in the training phase compared to the implementation proposed by the paper.
 
+## Want to experience more colorization methods ? 
+More colorization methods are available here [Machine-Learning-for-Colorization](https://github.com/Lyken17/Machine-Learning-for-Image-Colorization). Pick one that fits your photo best.
+
 # Colorize your favorite grayscale images
 * Hardware requirements
 
@@ -20,6 +23,7 @@ Our implementation is slightly different from the one proposed in the aforementi
   ```
   luarocks install torch
   luarocks install nn
+  luarocks install nngraph
   luarocks install image
   luarocks install lua-cjson
   luarocks install hdf5
